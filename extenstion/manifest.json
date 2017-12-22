@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "Text Editor",
+  "description": "Inject a text editor into any webpage!.",
+  "version": "1.0.0",
+
+
+  "browser_action": {
+    "default_icon": "images/icon19.png",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_security_policy":"script-src 'self' https://code.jquery.com; object-src 'self'"
+
+}

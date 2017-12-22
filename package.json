@@ -1,0 +1,24 @@
+{
+  "name": "textedit",
+  "version": "1.0.0",
+  "description": "Injects a text editor into any webpage",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicorn808/textedit.git.git"
+  },
+  "author": "Unicorn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unicorn808/textedit.git/issues"
+  },
+  "homepage": "https://github.com/unicorn808/textedit.git#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongodb": "latest",
+    "body-parser": "latest"
+  }
+}
