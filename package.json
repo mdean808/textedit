@@ -17,8 +17,9 @@
   },
   "homepage": "https://github.com/unicorn808/textedit.git#readme",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.16.2",
-    "mongodb": "latest",
-    "body-parser": "latest"
+    "jquery-fab": "^1.0.0",
+    "mongodb": "latest"
   }
 }

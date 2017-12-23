@@ -22,6 +22,16 @@ app.post('/api/newUser', function (req, res) {
 	}
 });
 
+app.post('/api/saveDocument', function (req, res) {
+	const user = req.body.username;
+	console.log(req);
+	try {
+		addUser(user)
+	} catch (e) {
+		console.log(e);
+	}
+});
+
 
 content = {
 	title: "Test Document",

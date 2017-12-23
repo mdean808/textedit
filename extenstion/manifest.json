@@ -11,6 +11,11 @@
     "default_popup": "popup.html"
   },
   "options_page": "options.html",
-  "content_security_policy":"script-src 'self' https://code.jquery.com; object-src 'self'"
-
+  "content_security_policy":"script-src 'self' https://code.jquery.com; object-src 'self'",
+  "content_scripts": [{
+    "css": ["./content/css/styles.css", "./content/css/jquery-fab.css"],
+    "js": ["./content/js/jq.js", "./content/js/jquery-fab.js", "./content/js/script.js"],
+    "matches": ["http://*/*", "https://*/*"],
+    "run_at": "document_end"
+  }]
 }
