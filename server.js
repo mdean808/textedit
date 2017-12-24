@@ -24,7 +24,6 @@ app.post('/api/newUser', function (req, res) {
 
 app.post('/api/save-document', function (req, res) {
 	const user = req.body.username;
-	console.log(req.body);
 	const content = {
 		title: req.body.title,
 		text: req.body.text,
@@ -32,7 +31,7 @@ app.post('/api/save-document', function (req, res) {
 	};
 	try {
 		console.log(user, content);
-		getDocument(content, user, editDocument(content, user), addDocument(content, user));
+		getDocument(content, user, editDocument, addDocument);
 		res.writeHead(200, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify({
 			message: 'Saved new document'
@@ -95,10 +94,10 @@ function getDocument(content, username, documentExists, noDocumentExists) {
 			if (err) return console.log(err);
 			try {
 				console.log(result.content);
-				documentExists();
+				documentExists(content, username);
 			} catch (e) {
 				console.log(e, result);
-				noDocumentExists();
+				noDocumentExists(content, username);
 			}
 			//TODO: some kind of res.end
 			database.close();
