@@ -27,7 +27,7 @@ app.post('/api/save-document', function (req, res) {
 	const content = {
 		title: req.body.title,
 		text: req.body.text,
-		url: req.body.url.split('#')[0];
+		url: req.body.url.split('#')[0]
 	};
 	try {
 		console.log(user, content);
