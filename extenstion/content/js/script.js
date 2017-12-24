@@ -37,7 +37,7 @@ function saveChanges() {
 	$('#change-status').html('Attempting to save changes...');
 	var text = $('#modal-text').val();
 	var title = $('#modal-title').html();
-	if (title == "") {
+	if (title === "") {
 		alert('Please Specify a title');
 		$('#modal-title').html('REEEE I NEED A TITLE!!!!11!!1! REEEEEEE');
 	}
@@ -46,6 +46,7 @@ function saveChanges() {
 		url: 'https://textedit-chrome.herokuapp.com/api/saveDocument',
 		data: {
 			username: '',
+			url: window.location.href,
 			title: title,
 			text: text
 		},
@@ -56,7 +57,7 @@ function saveChanges() {
 			}, 700)
 		},
 		error: function (res, err) {
-			console.log('Error:', err)
+			console.log('Error:', err);
 			setTimeout(function () {
 				$('#change-status').html('<p style="color: red">There was an error saving changes.</p>');
 			}, 700);
