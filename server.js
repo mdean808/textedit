@@ -9,7 +9,7 @@ const dbUrl = require('./lib/tokens.js').mongoUrl;
 
 app.use(express.static(__dirname + '/public_html'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.listen(process.env.PORT || 8080);
 
 app.post('/api/newUser', function (req, res) {
@@ -27,7 +27,7 @@ app.post('/api/save-document', function (req, res) {
 	const content = {
 		title: req.body.title,
 		text: req.body.text,
-		url: req.body.url
+		url: req.body.url.split('#')[0]
 	};
 	try {
 		console.log(user, content);
@@ -93,8 +93,10 @@ function getDocument(content, username, documentExists, noDocumentExists) {
 		db.collection(username).findOne({url: content.url}, function (err, result) {
 			if (err) return console.log(err);
 			try {
-				console.log(result.content);
-				documentExists(content, username);
+				if (result.content) {
+					console.log(result.content);
+					documentExists(content, username);
+				}
 			} catch (e) {
 				console.log(e, result);
 				noDocumentExists(content, username);
