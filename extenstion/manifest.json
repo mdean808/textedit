@@ -10,6 +10,9 @@
     "default_icon": "images/icon19.png",
     "default_popup": "popup.html"
   },
+  "permissions": [
+    "storage"
+  ],
   "options_page": "options.html",
   "content_security_policy":"script-src 'self' https://code.jquery.com; object-src 'self'",
   "content_scripts": [{

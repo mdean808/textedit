@@ -1,5 +1,10 @@
-enableButton();
-
+var username;
+chrome.storage.sync.get(['username', 'enabled'], function(settings) {
+	if (settings.enabled === true) {
+		enableButton();
+		username = settings.username;
+	}
+});
 //Listeners
 $('#modal-text').on('input', function () {
 	console.log('Change Detected');
@@ -43,9 +48,9 @@ function saveChanges() {
 	}
 	$.ajax({
 		method: 'post',
-		url: 'https://textedit-chrome.herokuapp.com/api/saveDocument',
+		url: 'https://textedit-chrome.herokuapp.com/api/',
 		data: {
-			username: '',
+			username: username,
 			url: window.location.href,
 			title: title,
 			text: text

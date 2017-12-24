@@ -18,7 +18,6 @@ content = {
 //addUser('unicorn');
 //addDocument(content, 'unicorn');
 //getDocument(content, 'unicorn');
-editDocument(content, 'unicorn');
 app.post('/api/newUser', function (req, res) {
 	const user = req.body.username;
 	console.log(req);
@@ -29,15 +28,16 @@ app.post('/api/newUser', function (req, res) {
 	}
 });
 
-app.post('/api/createDocument', function (req, res) {
+app.post('/api/save-document', function (req, res) {
 	const user = req.body.username;
 	const content = {
 		title: req.body.title,
-		text: req.body.text
+		text: req.body.text,
+		url: req.body.url
 	};
 	console.log(req);
 	try {
-		addDocument(content, user);
+		getDocument(content, user, editDocument(content, user), addDocument(content, user));
 		res.writeHead(200, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify({
 			message: 'Saved new document'
@@ -92,16 +92,18 @@ function editDocument(content, username) {
 	});
 }
 
-function getDocument(content, username) {
+function getDocument(content, username, documentExists, noDocumentExists) {
 	TextDB.connect(dbUrl, function (err, database) {
 		if (err) return console.log(err);
 		const db = database.db('heroku_kr6hcn1d');
-		db.collection(username).findOne({title: content.title}, function (err, result) {
+		db.collection(username).findOne({url: content.url}, function (err, result) {
 			if (err) return console.log(err);
 			try {
 				console.log(result.content);
+				documentExists();
 			} catch (e) {
 				console.log(e, result);
+				noDocumentExists();
 			}
 			//TODO: some kind of res.end
 			database.close();
