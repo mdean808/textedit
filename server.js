@@ -9,15 +9,9 @@ const dbUrl = require('./lib/tokens.js').mongoUrl;
 
 app.use(express.static(__dirname + '/public_html'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(process.env.PORT || 8080);
-content = {
-	url: 'https://www.google.com',
-	title: 'hui-alohaavafvasd',
-	text: 'HEHEHEEHEHE'
-};
-//addUser('unicorn');
-//addDocument(content, 'unicorn');
-//getDocument(content, 'unicorn');
+
 app.post('/api/newUser', function (req, res) {
 	const user = req.body.username;
 	console.log(req);
@@ -30,13 +24,14 @@ app.post('/api/newUser', function (req, res) {
 
 app.post('/api/save-document', function (req, res) {
 	const user = req.body.username;
+	console.log(req.body);
 	const content = {
 		title: req.body.title,
 		text: req.body.text,
 		url: req.body.url
 	};
-	console.log(req);
 	try {
+		console.log(user, content);
 		getDocument(content, user, editDocument(content, user), addDocument(content, user));
 		res.writeHead(200, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify({

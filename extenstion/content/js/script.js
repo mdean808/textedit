@@ -1,14 +1,14 @@
-var username;
+var username = '';
+
 chrome.storage.sync.get(['username', 'enabled'], function(settings) {
 	if (settings.enabled === true) {
-		enableButton();
 		username = settings.username;
+		enableButton();
+		$('#modal-text').on('input', function () {
+			console.log('Change Detected');
+			saveChanges();
+		});
 	}
-});
-//Listeners
-$('#modal-text').on('input', function () {
-	console.log('Change Detected');
-	saveChanges();
 });
 
 //Functions
@@ -30,7 +30,7 @@ function enableButton() {
 		"color": "#fffff",
 		"icon": "+"
 	}]);
-	console.log('added button')
+	console.log('added button for user', username)
 }
 
 function disableButton() {
@@ -48,7 +48,7 @@ function saveChanges() {
 	}
 	$.ajax({
 		method: 'post',
-		url: 'https://textedit-chrome.herokuapp.com/api/',
+		url: 'https://textedit-chrome.herokuapp.com/api/save-document',
 		data: {
 			username: username,
 			url: window.location.href,
