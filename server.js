@@ -24,7 +24,7 @@ app.post('/api/newUser', function (req, res) {
 var title = '';
 var text = '';
 app.post('/api/get-doc', function (req, res) {
-	getDocument(req.body.url, req.body.username);
+	getDocument(req.body.url.split('#')[0], req.body.username);
 	res.writeHead(200, {'Content-Type': 'application/json'});
 	res.end(JSON.stringify({
 		title: title,

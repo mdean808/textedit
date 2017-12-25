@@ -4,7 +4,7 @@ var noteText = '';
 chrome.storage.sync.get(['username', 'enabled'], function(settings) {
 	if (settings.enabled === true) {
 		username = settings.username;
-		reqestNoteData();
+		requestNoteData();
 		enableButton();
 		$('#modal-text').on('input', function () {
 			console.log('Change Detected');
@@ -15,11 +15,12 @@ chrome.storage.sync.get(['username', 'enabled'], function(settings) {
 
 //Functions
 
-function reqestNoteData() {
+function requestNoteData() {
+	console.log('requested');
 	$.ajax({
 		async: false,
 		method: 'post',
-		url: 'https://textedit-chrome.herokuapp.com/api/load-doc'
+		url: 'https://textedit-chrome.herokuapp.com/api/load-doc',
 		data: {
 			username: username,
 			url: window.location.href
@@ -30,7 +31,7 @@ function reqestNoteData() {
 			noteTitle = res.title;
 		},
 		error: function (res, err) {
-			console.log('Error:', err);
+			console.log('Error:', err, res);
 
 		}
 	})
