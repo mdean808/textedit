@@ -24,12 +24,7 @@ app.post('/api/newUser', function (req, res) {
 var title = '';
 var text = '';
 app.post('/api/get-doc', function (req, res) {
-	getDocument(req.body.url.split('#')[0], req.body.username);
-	res.writeHead(200, {'Content-Type': 'application/json'});
-	res.end(JSON.stringify({
-		title: title,
-		text: text
-	}));
+	getDocForModal(req.body.url.split('#')[0], req.body.username, res);
 });
 
 app.post('/api/save-document', function (req, res) {
@@ -115,23 +110,29 @@ function getDocument(content, username, documentExists, noDocumentExists) {
 	});
 }
 
-function getDocForModal(url, username) {
+function getDocForModal(url, username, res) {
 	TextDB.connect(dbUrl, function (err, database) {
 		if (err) return console.log(err);
 		const db = database.db('heroku_kr6hcn1d');
-		db.collection(username).findOne({url: content.url}, function (err, result) {
+		db.collection(username).findOne({url: url}, function (err, result) {
 			if (err) return console.log(err);
 			try {
-				title = result.content.title;
-				text = result.content.text;
-				console.log('Title', result.content.title);
-				console.log('Text', result.content.text);
+				console.log(result);
+				title = result.title;
+				text = result.text;
+				console.log('Title', result.title);
+				console.log('Text', result.text);
 				console.log('Url', url);
 			} catch (e) {
-				console.log('Url not used');
+				console.log('Url not used:', e);
 				title = 'Doc does not exist';
 				text = 'Doc does not exist';
 			}
+			res.writeHead(200, {'Content-Type': 'application/json'});
+			res.end(JSON.stringify({
+				title: title,
+				text: text
+			}));
 			//TODO: some kind of res.end
 			database.close();
 		})

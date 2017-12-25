@@ -20,7 +20,7 @@ function requestNoteData() {
 	$.ajax({
 		async: false,
 		method: 'post',
-		url: 'https://textedit-chrome.herokuapp.com/api/load-doc',
+		url: 'https://textedit-chrome.herokuapp.com/api/get-doc',
 		data: {
 			username: username,
 			url: window.location.href
