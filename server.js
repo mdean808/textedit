@@ -21,6 +21,16 @@ app.post('/api/newUser', function (req, res) {
 		console.log(e);
 	}
 });
+var title = '';
+var text = '';
+app.post('/api/get-doc', function (req, res) {
+	getDocument(req.body.url, req.body.username);
+	res.writeHead(200, {'Content-Type': 'application/json'});
+	res.end(JSON.stringify({
+		title: title,
+		text: text
+	}));
+});
 
 app.post('/api/save-document', function (req, res) {
 	const user = req.body.username;
@@ -98,6 +108,29 @@ function getDocument(content, username, documentExists, noDocumentExists) {
 			} catch (e) {
 				console.log(e, result);
 				noDocumentExists(content, username);
+			}
+			//TODO: some kind of res.end
+			database.close();
+		})
+	});
+}
+
+function getDocForModal(url, username) {
+	TextDB.connect(dbUrl, function (err, database) {
+		if (err) return console.log(err);
+		const db = database.db('heroku_kr6hcn1d');
+		db.collection(username).findOne({url: content.url}, function (err, result) {
+			if (err) return console.log(err);
+			try {
+				title = result.content.title;
+				text = result.content.text;
+				console.log('Title', result.content.title);
+				console.log('Text', result.content.text);
+				console.log('Url', url);
+			} catch (e) {
+				console.log('Url not used');
+				title = 'Doc does not exist';
+				text = 'Doc does not exist';
 			}
 			//TODO: some kind of res.end
 			database.close();
