@@ -54,15 +54,33 @@
     <div class="row center">
         <div class="col s12">
             <h5>- Morgan (Who else???)</h5>
+            <br>
+            <br>
+            <br>
+            <Br>
+            <a onclick="dadModal.open();" class="btn btn-large waves-block waves-white waves-effect white black-text"><i class="material-icons left">info</i>but wait! (there's more!)<i class="material-icons right">info</i></a>
         </div>
+    </div>
+</div>
+<div id="dad-modal" class="modal">
+    <div class="modal-content">
+        <h4>Dad, I didn't forget about you</h4>
+        <h5>However much you hoped 😂😂</h5>
+        <hr>
+        <p>You have my permission to select a seat cover for the truck.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="javascript:alert('your loss! ¯\\_(ツ)_/¯')" class="modal-action modal-close waves-effect waves-red btn-flat ">Disagree</a>
+        <a href="javascript:alert('Only if they are less than 20 bucks ;)')" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+
     </div>
 </div>
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.2/js/materialize.min.js"></script>
-<script type="text/javascript" src="index.js">
-	$(document).ready(function () {
-		$('.parallax').parallax();
-	});
+<script type="text/javascript" src="index.js"></script>
+<script>
+	var modal = document.querySelector('#dad-modal');
+	var dadModal = new M.Modal(modal);
 </script>
 </html>

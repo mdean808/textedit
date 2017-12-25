@@ -125,8 +125,8 @@ function getDocForModal(url, username, res) {
 				console.log('Url', url);
 			} catch (e) {
 				console.log('Url not used:', e);
-				title = 'Doc does not exist';
-				text = 'Doc does not exist';
+				title = 'Custom Title';
+				text = '';
 			}
 			res.writeHead(200, {'Content-Type': 'application/json'});
 			res.end(JSON.stringify({
